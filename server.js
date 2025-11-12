@@ -28,3 +28,6 @@ app.get("/products/:id", function(req, res) {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}/`);
 });
+
+//Use this Link to connect to mongoDB. 
+// mongodb+srv://laxsan:CJ4g7XVgZzEkPcqP@cluster0.awml2.mongodb.net/?appName=Cluster0
