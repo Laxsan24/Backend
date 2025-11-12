@@ -13,8 +13,8 @@ function requestHandler(req, res) {
   res.end("Hello from the server!");
 }
 
-app.get("/products", function(req, res) {
-  res.send("Welcome to my book shop!");
+app.get("/lessons", function(req, res) {
+  res.send("Lessons returning page");
 });
 app.use(function(req, res) {
   res.status(404).send("Sorry, that route doesn't exist.");
@@ -31,3 +31,5 @@ app.listen(PORT, () => {
 
 //Use this Link to connect to mongoDB. 
 // mongodb+srv://laxsan:CJ4g7XVgZzEkPcqP@cluster0.awml2.mongodb.net/?appName=Cluster0
+// app.post('/M00863760/users', async (req, res) => { 
+
