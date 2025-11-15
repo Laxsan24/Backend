@@ -9,9 +9,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-// ************* IMPORTANT *************
 const uri = process.env.MONGO_URI; 
-// *************************************
 
 if (!uri) {
   console.error("❌ ERROR: MONGO_URI is undefined. Check your .env file!");
@@ -34,10 +32,37 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
+//Logger middleware
+app.use(function(req,res,next){
+  console.log("Request URL:" + req.url);
+  console.log("Request Method:" + req.method);
+  next();
 });
 
+app.get("/", (req, res)=>{
+  res.send("Hello World");
+});
+app.get("/lessons", function (req, res){
+  res.send("Lessons page");
+});
+app.get("/lessons/:id", function(req, res) {
+  const id = parseInt(req.params.id, 10);
+  res.send("Product ID: " + id);
+});
+
+app.get("/search", function (req, res) {
+  res.send("Search functionality");
+});
+app.post("/orders", function (req, res){
+  res.send("Order confirmed");
+});
+app.put("/orders", function(req,res){
+  res.send("Order")
+});
+
+app.use(function(req, res) {
+  res.status(404).send("Sorry, that route doesn't exist.");
+});
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}/`);
 });
