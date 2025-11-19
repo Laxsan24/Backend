@@ -5,16 +5,18 @@ import path from "path";
 import fs from "fs";
 import morgan from "morgan";
 import { fileURLToPath } from "url";
-
+import cors from "cors";
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = path.dirname(_filename);
 dotenv.config();
 
-
 const app = express();
-//Express
+
+//Express, morgan, cons and connecting to database
 app.use(express.json());
 app.use(morgan("short"));
+app.use(cors());
+
 const PORT = process.env.PORT || 3000;
 
 const uri = process.env.MONGO_URI; 
@@ -30,7 +32,7 @@ let db;
 async function connectToDatabase() {
   try {
     await client.connect();
-    db = client.db("mydatabase");
+    db = client.db("Shopping");
     console.log("✅ Connected to MongoDB Atlas");
   } catch (err) {
     console.error("❌ MongoDB connection error:", err);
@@ -58,7 +60,6 @@ app.use(function(req,res,next){
 });
 
 //Static file middleware
-
 app.use(function(req,res,next){
   const filePath = path.join(_dirname, "static", req.url);
   fs.stat(filePath, function(err, fileInfo) {
@@ -74,29 +75,39 @@ app.use(function(req,res,next){
    });
 });
 
-const staticPath = path.join(_dirname, "static");
+const staticPath = path.resolve(_dirname, "static");
 app.use(express.static(staticPath));
 
+//Image file path.
+const imagesPath = path.resolve(_dirname, "images");
+app.use("/images", function (req,res,next){
+  const filePath = path.join(imagesPath, req.url);
+   fs.access(filePath, function (err) {
+    if (err) {
+      return res.status(404).json({ error: "Image not found" });
+    }
+    next();
+  });
+});
 
-app.get("/", (req, res)=>{
-  res.send("Hello World");
-});
-app.get("/lessons", function (req, res){
-  res.send("Lessons page");
-});
-app.get("/lessons/:id", function(req, res) {
-  const id = parseInt(req.params.id, 10);
-  res.send("Product ID: " + id);
+app.use('/images', express.static(imagesPath));
+
+//GET method
+app.get("/lessons", async (req,res) => {
+  try {
+    const lessons = await db.collection('Lessons').find().toArray();
+    res.json(lessons);
+  } catch (err) {
+    res.status(500).send("Error sending lessons");
+  }
 });
 
-app.get("/search", function (req, res) {
-  res.send("Search functionality");
-});
 app.post("/orders", function (req, res){
   res.send("Order confirmed");
 });
+
 app.put("/orders", function(req,res){
-  res.send("Order")
+  res.send("Order Updated")
 });
 
 app.use(function(req, res) {
