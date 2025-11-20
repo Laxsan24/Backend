@@ -91,12 +91,65 @@ app.use("/images", function (req,res,next){
 });
 
 app.use('/images', express.static(imagesPath));
+// const apiRouter = require("./api_router");
+// app.use("/api", apiRouter);
 
-//GET method
+// fetch("http://localhost:3000/lessons").then(
+
+//   function(response) {
+
+//     response.json().then(
+
+//       function(json) {
+
+//       console.log(json);
+
+// note that we used ‘webstore.products’
+
+//instead of 'this.products’
+
+//       webstore.products = json;
+
+//       }
+
+//     )
+
+//   }
+
+// )
+
+// fetch("http://localhost:3000/orders").then(
+
+//   function(response) {
+
+//     response.json().then(
+
+//       function(json) {
+
+//       console.log(json);
+
+//       note that we used ‘webstore.products’
+
+//       instead of 'this.products’
+
+//       webstore.products = json;
+
+//       }
+
+//     )
+
+//   }
+
+// )
+
+//GET method need to do fetch
+//Connect it to avariable
 app.get("/lessons", async (req,res) => {
   try {
     const lessons = await db.collection('Lessons').find().toArray();
     res.json(lessons);
+     // console.log(lessons)
+     // res.json({ msg: `Lessons collected from MongoDB!`, lessons: lessons });
   } catch (err) {
     res.status(500).send("Error sending lessons");
   }
@@ -105,11 +158,56 @@ app.get("/lessons", async (req,res) => {
 app.post("/orders", function (req, res){
   res.send("Order confirmed");
 });
+// app.post("/orders", async (req, res) => {
+
+//   try {
+
+//     const newOrder = req.body;
+
+//     const result = await db.collection("order").insertOne(newOrder);
+
+//     res.json({ message: "Order saved", id: result.insertedId });
+
+//   } catch (err) {
+
+//     res.status(500).json({ error: "Failed to save order" });
+
+//   }
+
+// });
 
 app.put("/orders", function(req,res){
   res.send("Order Updated")
 });
+//import { ObjectId } from "mongodb";
 
+//app.put("/lessons/:id", async (req, res) => {
+
+//   try {
+
+//     const lessonId = req.params.id;
+
+//     const updates = req.body;  // can update ANY field
+
+//     const result = await db.collection("lesson").updateOne(
+
+//       { _id: new ObjectId(lessonId) },
+
+//       { $set: updates }
+
+//     );
+
+  
+
+//     res.json({ message: "Lesson updated", result });
+
+//   } catch (err) {
+
+//     res.status(500).json({ error: "Failed to update lesson" });
+
+//   }
+
+// });
 app.use(function(req, res) {
   res.status(404).send("Sorry, that route doesn't exist.");
 });
