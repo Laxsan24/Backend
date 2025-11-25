@@ -19,7 +19,7 @@ app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 
-const uri = process.env.MONGO_URI; 
+const uri = process.env.MONGO_URI;
 
 if (!uri) {
   console.error("❌ ERROR: MONGO_URI is undefined. Check your .env file!");
@@ -42,7 +42,7 @@ async function connectToDatabase() {
 connectToDatabase();
 
 //Logger middleware showing data, URL and method.
-app.use(function(req,res,next){
+app.use(function (req, res, next) {
   const minutes = (new Date()).getTimezoneOffset();
   if ((minutes % 2) === 0) {
     next();
@@ -51,8 +51,8 @@ app.use(function(req,res,next){
     res.statusCode = 404;
     res.end("Not authorized");
   }
-  });
-app.use(function(req,res,next){
+});
+app.use(function (req, res, next) {
   console.log("Request date", + new Date());
   console.log("Request URL:" + req.url);
   console.log(['::ffff:127.0.0.1'].indexOf(req.ip));
@@ -61,19 +61,19 @@ app.use(function(req,res,next){
 });
 
 //Static file middleware
-app.use(function(req,res,next){
+app.use(function (req, res, next) {
   const filePath = path.join(_dirname, "static", req.url);
-  fs.stat(filePath, function(err, fileInfo) {
+  fs.stat(filePath, function (err, fileInfo) {
     if (err) {
-        next();
-        return;
+      next();
+      return;
     }
     if (fileInfo.isFile()) {
       res.sendFile(filePath);
     } else {
-        next();
+      next();
     }
-   });
+  });
 });
 
 const staticPath = path.resolve(_dirname, "static");
@@ -81,9 +81,9 @@ app.use(express.static(staticPath));
 
 //Image file path.
 const imagesPath = path.resolve(_dirname, "images");
-app.use("/images", function (req,res,next){
+app.use("/images", function (req, res, next) {
   const filePath = path.join(imagesPath, req.url);
-   fs.access(filePath, function (err) {
+  fs.access(filePath, function (err) {
     if (err) {
       return res.status(404).json({ error: "Image not found" });
     }
@@ -145,71 +145,58 @@ app.use('/images', express.static(imagesPath));
 
 //GET method need to do fetch
 //Connect it to avariable
-app.get("/lessons", async (req,res) => {
+app.get("/lessons", async (req, res) => {
   try {
     const lessons = await db.collection('Lessons').find().toArray();
     res.json(lessons);
-     // console.log(lessons)
-     // res.json({ msg: `Lessons collected from MongoDB!`, lessons: lessons });
+    // console.log(lessons)
+    // res.json({ msg: `Lessons collected from MongoDB!`, lessons: lessons });
   } catch (err) {
     res.status(500).send("Error sending lessons");
   }
 });
 
-app.post("/orders", function (req, res){
-  res.send("Order confirmed");
-});
-// app.post("/orders", async (req, res) => {
-
-//   try {
-
-//     const newOrder = req.body;
-
-//     const result = await db.collection("order").insertOne(newOrder);
-
-//     res.json({ message: "Order saved", id: result.insertedId });
-
-//   } catch (err) {
-
-//     res.status(500).json({ error: "Failed to save order" });
-
-//   }
-
+// app.post("/orders", function (req, res) {
+//   res.send("Order confirmed");
 // });
+//POST new order creating new order
+app.post("/orders", async (req, res) => {
 
-app.put("/orders", function(req,res){
-  res.send("Order Updated")
+  try {
+    const newOrder = req.body;
+    const result = await db.collection("Orders").insertOne(newOrder);
+    res.json({ message: "Order saved", id: result.insertedId });
+  }
+  catch (err) {
+    res.status(500).json({ error: "Failed to save order" });
+  }
 });
-//import { ObjectId } from "mongodb";
 
-//app.put("/lessons/:id", async (req, res) => {
-
-//   try {
-
-//     const lessonId = req.params.id;
-
-//     const updates = req.body;  // can update ANY field
-
-//     const result = await db.collection("lesson").updateOne(
-
-//       { _id: new ObjectId(lessonId) },
-
-//       { $set: updates }
-
-//     );
-
-  
-
-//     res.json({ message: "Lesson updated", result });
-
-//   } catch (err) {
-
-//     res.status(500).json({ error: "Failed to update lesson" });
-
-//   }
-
+// app.put("/orders", function (req, res) {
+//   //Use updating an existing item and use "/lessons". You can't use orders because your order is already been submitted. You have to use lessons.
+//   res.send("Order Updated")
 // });
-app.use(function(req, res) {
+//PUT method For when is for updating the order.
+import { ObjectId } from "mongodb";
+
+app.put("/lessons/:id", async (req, res) => {
+  try {
+    const lessonId = req.params.id;
+    const updates = req.body;
+
+    const result = await db.collection("Lessons").updateOne(
+      { _id: new ObjectId(lessonId) },
+      { $set: updates }
+    );
+
+    res.json({ message: "Lesson updated", result });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update lesson" });
+  }
+});
+
+
+app.use(function (req, res) {
   res.status(404).send("Sorry, that route doesn't exist.");
 });
 app.listen(PORT, () => {
