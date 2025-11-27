@@ -1,13 +1,13 @@
 import express from "express";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
 import morgan from "morgan";
 import { fileURLToPath } from "url";
 import cors from "cors";
-const _filename = fileURLToPath(import.meta.url);
-const _dirname = path.dirname(_filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 dotenv.config();
 
 const app = express();
@@ -42,16 +42,16 @@ async function connectToDatabase() {
 connectToDatabase();
 
 //Logger middleware showing data, URL and method.
-app.use(function (req, res, next) {
-  const minutes = (new Date()).getTimezoneOffset();
-  if ((minutes % 2) === 0) {
-    next();
-  }
-  else {
-    res.statusCode = 404;
-    res.end("Not authorized");
-  }
-});
+// app.use(function (req, res, next) {
+//   const minutes = (new Date()).getTimezoneOffset();
+//   if ((minutes % 2) === 0) {
+//     next();
+//   }
+//   else {
+//     res.statusCode = 404;
+//     res.end("Not authorized");
+//   }
+// });
 app.use(function (req, res, next) {
   console.log("Request date", + new Date());
   console.log("Request URL:" + req.url);
@@ -61,26 +61,26 @@ app.use(function (req, res, next) {
 });
 
 //Static file middleware
-app.use(function (req, res, next) {
-  const filePath = path.join(_dirname, "static", req.url);
-  fs.stat(filePath, function (err, fileInfo) {
-    if (err) {
-      next();
-      return;
-    }
-    if (fileInfo.isFile()) {
-      res.sendFile(filePath);
-    } else {
-      next();
-    }
-  });
-});
+// app.use(function (req, res, next) {
+//   const filePath = path.join(__dirname, "static", req.url);
+//   fs.stat(filePath, function (err, fileInfo) {
+//     if (err) {
+//       next();
+//       return;
+//     }
+//     if (fileInfo.isFile()) {
+//       res.sendFile(filePath);
+//     } else {
+//       next();
+//     }
+//   });
+// });
 
-const staticPath = path.resolve(_dirname, "static");
+const staticPath = path.resolve(__dirname, "static");
 app.use(express.static(staticPath));
 
 //Image file path.
-const imagesPath = path.resolve(_dirname, "images");
+const imagesPath = path.resolve(__dirname, "images");
 app.use("/images", function (req, res, next) {
   const filePath = path.join(imagesPath, req.url);
   fs.access(filePath, function (err) {
@@ -92,58 +92,6 @@ app.use("/images", function (req, res, next) {
 });
 
 app.use('/images', express.static(imagesPath));
-// const apiRouter = require("./api_router");
-// app.use("/api", apiRouter);
-
-// fetch("http://localhost:3000/lessons").then(
-
-//   function(response) {
-
-//     response.json().then(
-
-//       function(json) {
-
-//       console.log(json);
-
-// note that we used ‘webstore.products’
-
-//instead of 'this.products’
-
-//       webstore.products = json;
-
-//       }
-
-//     )
-
-//   }
-
-// )
-
-// fetch("http://localhost:3000/orders").then(
-
-//   function(response) {
-
-//     response.json().then(
-
-//       function(json) {
-
-//       console.log(json);
-
-//       note that we used ‘webstore.products’
-
-//       instead of 'this.products’
-
-//       webstore.products = json;
-
-//       }
-
-//     )
-
-//   }
-
-// )
-
-//GET method need to do fetch
 //Connect it to avariable
 app.get("/lessons", async (req, res) => {
   try {
@@ -172,12 +120,6 @@ app.post("/orders", async (req, res) => {
   }
 });
 
-// app.put("/orders", function (req, res) {
-//   //Use updating an existing item and use "/lessons". You can't use orders because your order is already been submitted. You have to use lessons.
-//   res.send("Order Updated")
-// });
-//PUT method For when is for updating the order.
-import { ObjectId } from "mongodb";
 
 app.put("/lessons/:id", async (req, res) => {
   try {
