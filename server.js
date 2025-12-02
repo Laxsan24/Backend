@@ -77,7 +77,7 @@ app.use(function (req, res, next) {
 // });
 
 const staticPath = path.resolve(__dirname, "static");
-app.use(express.static(staticPath));
+app.use('/images',express.static('images'));
 
 //Image file path.
 const imagesPath = path.resolve(__dirname, "images");
@@ -91,7 +91,7 @@ app.use("/images", function (req, res, next) {
   });
 });
 
-app.use('/images', express.static(imagesPath));
+app.use('/images', express.static('images'));
 //Connect it to avariable
 app.get("/lessons", async (req, res) => {
   try {
