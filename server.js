@@ -19,6 +19,8 @@ app.use(express.json());
 app.use(morgan("short"));
 app.use(cors());
 
+
+
 // Load environment variables
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGO_URI;

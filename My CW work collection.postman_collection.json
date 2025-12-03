@@ -25,12 +25,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/lessons",
-					"protocol": "http",
+					"raw": "https://backend-hhxg.onrender.com/lessons",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"backend-hhxg",
+						"onrender",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"lessons"
 					]
@@ -53,12 +54,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/orders",
-					"protocol": "http",
+					"raw": "https://backend-hhxg.onrender.com/orders",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"backend-hhxg",
+						"onrender",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"orders"
 					]
@@ -73,7 +75,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"availableInventory\": \"\"}",
+					"raw": "{\r\n  \"availableInventory\":4\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -81,21 +83,16 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/lessons/:id6909f4c115d4524bcde7a5ee",
-					"protocol": "http",
+					"raw": "https://backend-hhxg.onrender.com/lessons/690dd6c1385ed7553840b75b",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"backend-hhxg",
+						"onrender",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"lessons",
-						":id6909f4c115d4524bcde7a5ee"
-					],
-					"variable": [
-						{
-							"key": "id6909f4c115d4524bcde7a5ee",
-							"value": ""
-						}
+						"690dd6c1385ed7553840b75b"
 					]
 				}
 			},
