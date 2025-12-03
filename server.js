@@ -80,13 +80,27 @@ app.get("/lessons", async (req, res) => {
 // Create order
 app.post("/orders", async (req, res) => {
   try {
-    const newOrder = req.body;
-    const result = await db.collection("Orders").insertOne(newOrder);
-    res.json({ message: "Order saved", id: result.insertedId });
+    const order = req.body.order; 
+
+    const result = await db.collection("Orders").insertOne({
+      firstName: order.firstName,
+      lastName: order.lastName,
+      Address: order.address,
+      City: order.city,
+      State: order.state,
+      Zip: order.zip,
+      Phone: order.phone,
+      Gift: order.gift,
+      Method: order.method
+    });
+
+    res.status(201).json({ message: "Order created", result });
   } catch (err) {
-    res.status(500).json({ error: "Failed to save order" });
+    console.error("Order error:", err);
+    res.status(500).json({ error: "Failed to create order" });
   }
 });
+
 
 // Update lesson
 app.put("/lessons/:id", async (req, res) => {
