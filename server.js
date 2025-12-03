@@ -6,19 +6,21 @@ import fs from "fs";
 import morgan from "morgan";
 import { fileURLToPath } from "url";
 import cors from "cors";
+
+dotenv.config();
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-dotenv.config();
 
 const app = express();
 
-//Express, morgan, cons and connecting to database
+// Middleware
 app.use(express.json());
 app.use(morgan("short"));
 app.use(cors());
 
+// Load environment variables
 const PORT = process.env.PORT || 3000;
-
 const uri = process.env.MONGO_URI;
 
 if (!uri) {
@@ -26,6 +28,7 @@ if (!uri) {
   process.exit(1);
 }
 
+// MongoDB connection
 const client = new MongoClient(uri);
 let db;
 
@@ -41,86 +44,49 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
-//Logger middleware showing data, URL and method.
-// app.use(function (req, res, next) {
-//   const minutes = (new Date()).getTimezoneOffset();
-//   if ((minutes % 2) === 0) {
-//     next();
-//   }
-//   else {
-//     res.statusCode = 404;
-//     res.end("Not authorized");
-//   }
-// });
+// Logger middleware
 app.use(function (req, res, next) {
-  console.log("Request date", + new Date());
-  console.log("Request URL:" + req.url);
-  console.log(['::ffff:127.0.0.1'].indexOf(req.ip));
-  console.log("Request Method:" + req.method);
+  console.log("Request date:", new Date());
+  console.log("Request URL:", req.url);
+  console.log("Request Method:", req.method);
   next();
 });
 
-//Static file middleware
-// app.use(function (req, res, next) {
-//   const filePath = path.join(__dirname, "static", req.url);
-//   fs.stat(filePath, function (err, fileInfo) {
-//     if (err) {
-//       next();
-//       return;
-//     }
-//     if (fileInfo.isFile()) {
-//       res.sendFile(filePath);
-//     } else {
-//       next();
-//     }
-//   });
-// });
-
-const staticPath = path.resolve(__dirname, "static");
-app.use('/images',express.static('images'));
-
-//Image file path.
+// Serve images
 const imagesPath = path.resolve(__dirname, "images");
-app.use("/images", function (req, res, next) {
+
+app.use("/images", (req, res, next) => {
   const filePath = path.join(imagesPath, req.url);
-  fs.access(filePath, function (err) {
-    if (err) {
-      return res.status(404).json({ error: "Image not found" });
-    }
+  fs.access(filePath, (err) => {
+    if (err) return res.status(404).json({ error: "Image not found" });
     next();
   });
 });
 
-app.use('/images', express.static('images'));
-//Connect it to avariable
+app.use("/images", express.static("images"));
+
+// Get lessons
 app.get("/lessons", async (req, res) => {
   try {
-    const lessons = await db.collection('Lessons').find().toArray();
+    const lessons = await db.collection("Lessons").find().toArray();
     res.json(lessons);
-    // console.log(lessons)
-    // res.json({ msg: `Lessons collected from MongoDB!`, lessons: lessons });
   } catch (err) {
     res.status(500).send("Error sending lessons");
   }
 });
 
-// app.post("/orders", function (req, res) {
-//   res.send("Order confirmed");
-// });
-//POST new order creating new order
+// Create order
 app.post("/orders", async (req, res) => {
-
   try {
     const newOrder = req.body;
     const result = await db.collection("Orders").insertOne(newOrder);
     res.json({ message: "Order saved", id: result.insertedId });
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json({ error: "Failed to save order" });
   }
 });
 
-
+// Update lesson
 app.put("/lessons/:id", async (req, res) => {
   try {
     const lessonId = req.params.id;
@@ -137,10 +103,12 @@ app.put("/lessons/:id", async (req, res) => {
   }
 });
 
-
-app.use(function (req, res) {
+// 404 handler
+app.use((req, res) => {
   res.status(404).send("Sorry, that route doesn't exist.");
 });
+
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
+  console.log(`Server running on port ${PORT}`);
 });
