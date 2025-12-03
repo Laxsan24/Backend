@@ -1,0 +1,120 @@
+[{
+  "_id": {
+    "$oid": "6909f4c115d4524bcde7a5ee"
+  },
+  "Subject": "Math",
+  "Price": 20,
+  "ID": 1,
+  "Location": "London",
+  "Rating": 5,
+  "availableInventory": 2,
+  "images": "/images/Math_image.jpg"
+},
+{
+  "_id": {
+    "$oid": "690dd3d9385ed7553840b752"
+  },
+  "Subject": "Science",
+  "Price": 5,
+  "ID": 2,
+  "Location": "Oxford",
+  "Rating": 2,
+  "availableInventory": 3,
+  "images": "/images/Science_image.jpg"
+},
+{
+  "_id": {
+    "$oid": "690dd449385ed7553840b753"
+  },
+  "Subject": "English",
+  "Price": 10,
+  "ID": 3,
+  "Location": "Cambridge",
+  "Rating": 3,
+  "availableInventory": 1,
+  "images": "/images/English_image.jpg"
+},
+{
+  "_id": {
+    "$oid": "690dd4fd385ed7553840b755"
+  },
+  "Subject": "German",
+  "Price": 5,
+  "ID": 4,
+  "Location": "Canterbury",
+  "Rating": 1,
+  "availableInventory": 4,
+  "images": "/images/German_image.jpg"
+},
+{
+  "_id": {
+    "$oid": "690dd535385ed7553840b756"
+  },
+  "Subject": "French",
+  "Price": 7,
+  "ID": 5,
+  "Location": "Brighton",
+  "Rating": 3,
+  "availableInventory": 3,
+  "images": "/images/French_image.jpeg"
+},
+{
+  "_id": {
+    "$oid": "690dd571385ed7553840b757"
+  },
+  "Subject": "Spanish",
+  "Price": 7,
+  "ID": 6,
+  "Location": "Bath",
+  "Rating": 3,
+  "availableInventory": 1,
+  "images": "/images/Spanish_image.png"
+},
+{
+  "_id": {
+    "$oid": "690dd5b9385ed7553840b758"
+  },
+  "Subject": "Criminology",
+  "Price": 7,
+  "ID": 7,
+  "Location": "Windsor",
+  "Rating": 2,
+  "availableInventory": 2,
+  "images": "/images/Criminology_image.jpeg"
+},
+{
+  "_id": {
+    "$oid": "690dd63e385ed7553840b759"
+  },
+  "Subject": "Computer Science",
+  "Price": 15,
+  "ID": 8,
+  "Location": "London",
+  "Rating": 5,
+  "availableInventory": 4,
+  "images": "/images/ComputerScience_image.jpeg"
+},
+{
+  "_id": {
+    "$oid": "690dd687385ed7553840b75a"
+  },
+  "Subject": "Business",
+  "Price": 10,
+  "ID": 9,
+  "Location": "Reading",
+  "Rating": 4,
+  "availableInventory": 1,
+  "images": "/images/Business_image.jpeg"
+},
+{
+  "_id": {
+    "$oid": "690dd6c1385ed7553840b75b"
+  },
+  "Subject": "Economic",
+  "Price": 10,
+  "ID": 10,
+  "Location": "Luton",
+  "Rating": 4,
+  "availableInventory": 4,
+  "images": "/images/Economic_image.jpeg"
+}]

@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "129d24e7-2fba-4ed8-8c17-106ddf294643",
+		"name": "My CW work collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48790125",
+		"_collection_link": "https://laxsan24-6033750.postman.co/workspace/laxsan24's-Workspace~210d8e29-2fec-409f-894a-c8ed67e17a91/collection/48790125-129d24e7-2fba-4ed8-8c17-106ddf294643?action=share&source=collection_link&creator=48790125"
+	},
+	"item": [
+		{
+			"name": "/lessons GET Method",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/lessons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lessons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/orders POST method",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstName\": \"Laxsan\",\r\n\"lastName\": \"Prabaharan\",\r\n\"Address\": \"1 Hendon road\",\r\n\"City\": \"London\",\r\n\"Gift\": \"false\",\r\n\"Method\": \"Business\",\r\n\"Phone\": \"1234567899\",\r\n\"State\": \"South East\",\r\n\"Zip\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/lessons PUT method",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"availableInventory\": \"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/lessons/:id6909f4c115d4524bcde7a5ee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lessons",
+						":id6909f4c115d4524bcde7a5ee"
+					],
+					"variable": [
+						{
+							"key": "id6909f4c115d4524bcde7a5ee",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
