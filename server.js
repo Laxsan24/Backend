@@ -54,7 +54,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-// Serve images
+// Static file images
 const imagesPath = path.resolve(__dirname, "images");
 
 app.use("/images", (req, res, next) => {
