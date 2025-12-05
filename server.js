@@ -11,13 +11,17 @@ dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+// Express app setup
 const app = express();
 
 // Middleware
 app.use(express.json());
 app.use(morgan("short"));
-app.use(cors());
+app.use(cors({
+  origin: ["https://laxsan24.github.io/Fullstack/", "http://localhost:5173/"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 
 
@@ -56,7 +60,7 @@ app.use(function (req, res, next) {
 
 // Static file images
 const imagesPath = path.resolve(__dirname, "images");
-
+// Middleware to check if image exists
 app.use("/images", (req, res, next) => {
   const filePath = path.join(imagesPath, req.url);
   fs.access(filePath, (err) => {
@@ -80,18 +84,18 @@ app.get("/lessons", async (req, res) => {
 // Create order
 app.post("/orders", async (req, res) => {
   try {
-    const order = req.body.order; 
+    const order = req.body.order;
 
     const result = await db.collection("Orders").insertOne({
       firstName: order.firstName,
       lastName: order.lastName,
-      Address: order.address,
-      City: order.city,
-      State: order.state,
-      Zip: order.zip,
-      Phone: order.phone,
-      Gift: order.gift,
-      Method: order.method
+      address: order.address,
+      city: order.city,
+      state: order.state,
+      zip: order.zip,
+      phone: order.phone,
+      gift: order.gift,
+      method: order.method
     });
 
     res.status(201).json({ message: "Order created", result });
