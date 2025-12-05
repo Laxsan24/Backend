@@ -7,7 +7,7 @@
   "ID": 1,
   "Location": "London",
   "Rating": 5,
-  "availableInventory": 2,
+  "availableInventory": 4,
   "images": "/images/Math_image.jpg"
 },
 {
@@ -19,7 +19,7 @@
   "ID": 2,
   "Location": "Oxford",
   "Rating": 2,
-  "availableInventory": 3,
+  "availableInventory": 5,
   "images": "/images/Science_image.jpg"
 },
 {
@@ -31,7 +31,7 @@
   "ID": 3,
   "Location": "Cambridge",
   "Rating": 3,
-  "availableInventory": 1,
+  "availableInventory": 5,
   "images": "/images/English_image.jpg"
 },
 {
@@ -43,7 +43,7 @@
   "ID": 4,
   "Location": "Canterbury",
   "Rating": 1,
-  "availableInventory": 4,
+  "availableInventory": 5,
   "images": "/images/German_image.jpg"
 },
 {
@@ -55,7 +55,7 @@
   "ID": 5,
   "Location": "Brighton",
   "Rating": 3,
-  "availableInventory": 3,
+  "availableInventory": 5,
   "images": "/images/French_image.jpeg"
 },
 {
@@ -67,7 +67,7 @@
   "ID": 6,
   "Location": "Bath",
   "Rating": 3,
-  "availableInventory": 1,
+  "availableInventory": 5,
   "images": "/images/Spanish_image.png"
 },
 {
@@ -79,7 +79,7 @@
   "ID": 7,
   "Location": "Windsor",
   "Rating": 2,
-  "availableInventory": 2,
+  "availableInventory": 5,
   "images": "/images/Criminology_image.jpeg"
 },
 {
@@ -91,7 +91,7 @@
   "ID": 8,
   "Location": "London",
   "Rating": 5,
-  "availableInventory": 4,
+  "availableInventory": 5,
   "images": "/images/ComputerScience_image.jpeg"
 },
 {
@@ -103,7 +103,7 @@
   "ID": 9,
   "Location": "Reading",
   "Rating": 4,
-  "availableInventory": 1,
+  "availableInventory": 5,
   "images": "/images/Business_image.jpeg"
 },
 {
@@ -115,6 +115,6 @@
   "ID": 10,
   "Location": "Luton",
   "Rating": 4,
-  "availableInventory": 4,
+  "availableInventory": 5,
   "images": "/images/Economic_image.jpeg"
 }]

@@ -17,11 +17,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(morgan("short"));
-app.use(cors({
-  origin: ["https://laxsan24.github.io/Fullstack/", "http://localhost:5173/"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+app.use(cors());
 
 
 
